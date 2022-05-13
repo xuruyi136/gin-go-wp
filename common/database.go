@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"gin-go-wp/model"
 
+	"net/url"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -11,19 +13,21 @@ var DB *gorm.DB
 
 func InitDB() *gorm.DB {
 	driverName := "mysql"
-	host := "121.199.195.242"
+	host := "121.196.195.242"
 	port := "3306"
 	database := "ginessential"
 	username := "root"
 	password := "123456"
 	charset := "utf8"
-	args := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True",
+	loc := "Asia/Shanghai"
+	args := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True&loc=%s",
 		username,
 		password,
 		host,
 		port,
 		database,
 		charset,
+		url.QueryEscape(loc),
 	)
 
 	db, err := gorm.Open(driverName, args)
